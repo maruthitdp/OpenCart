@@ -14,7 +14,7 @@ import io.cucumber.junit.CucumberOptions;
 								glue="com.opencart.stepDefinations",
 								stepNotifications=true,
 								dryRun=false,
-								tags="@abc143",
+								tags="@Login",
 								plugin = { "pretty", "json:target/cucumber-reports/Cucumber.json",
 										"html:target/cucumber-reports/reports.html"},
 								monochrome = true)

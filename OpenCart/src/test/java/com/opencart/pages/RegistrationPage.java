@@ -14,6 +14,11 @@ import com.opencart.base.BaseClass;
 
 public class RegistrationPage extends BasePage{
 	private WebDriver driver;
+	
+	 public RegistrationPage(WebDriver driver) {
+	        this.driver = driver;
+	        PageFactory.initElements(driver, this);
+	    }
 
     @FindBy(xpath = "//span[text()='My Account']")
     private WebElement myAccountButton;
@@ -53,11 +58,7 @@ public class RegistrationPage extends BasePage{
     private WebElement detailsForm;
 
 
-    // Constructor to initialize PageFactory elements
-    public RegistrationPage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+   
 
     public void clickMyAccount() {
     	

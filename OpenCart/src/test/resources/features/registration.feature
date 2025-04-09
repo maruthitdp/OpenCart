@@ -1,5 +1,5 @@
 Feature: Register Functionality
-@abc143
+@register
 Scenario: Validate Registering an Account by providing only the Mandatory fields of already registered details
 
 Given user launches the browser and open the url

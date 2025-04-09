@@ -32,12 +32,13 @@ public class BasePage extends BaseClass {
 
 	// to provide data by send keys
 	public void type(WebElement element, String text) {
-		
+		waitForElement(element);
 		element.sendKeys(text);
 	}
 
 	public void click(WebElement element) {
-		
+		waitForElement(element);
+
 		element.click();
 	}
 

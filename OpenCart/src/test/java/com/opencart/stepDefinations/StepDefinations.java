@@ -6,6 +6,7 @@ import java.util.Map;
 import org.openqa.selenium.WebElement;
 
 import com.opencart.base.BaseClass;
+import com.opencart.pages.LogInPage;
 import com.opencart.pages.RegistrationPage;
 
 import io.cucumber.datatable.DataTable;
@@ -19,12 +20,14 @@ public class StepDefinations extends BaseClass {
 
 	BaseClass baseClass;
 	RegistrationPage registrationPage;
+	LogInPage logIn;
 
 	@Given("user launches the browser and open the url")
 	public void user_launches_the_browser_and_open_the_url() {
 		launchBrowser();
 		openUrl();
 		registrationPage = new RegistrationPage(driver);
+		logIn = new LogInPage(driver);
 	}
 
 	@When("user clicks on MyAccount button and selects Register option")
@@ -71,17 +74,52 @@ public class StepDefinations extends BaseClass {
 	@Then("user should be navigated to Account Success Page and verify the title of the page")
 	public void user_should_be_navigated_to_account_success_page_and_verify_the_title_of_the_page(DataTable dataTable) {
 		String expectedTitle = dataTable.asMaps(String.class, String.class).get(0).get("expTitle");
-	
-		switch(expectedTitle) {
-		case "Your Account Has Been Created!":registrationPage.verifyTitle(expectedTitle); break;
-		case "Register Account":System.out.println("User already registered with email...");break;
-		default: System.out.println("Error while registration... please check all the details that you have provided...");
+
+		switch (expectedTitle) {
+		case "Your Account Has Been Created!":
+			registrationPage.verifyTitle(expectedTitle);
+			break;
+		case "Register Account":
+			System.out.println("User already registered with email...");
+			break;
+		default:
+			System.out.println("Error while registration... please check all the details that you have provided...");
 		}
-		
+
 	}
-@After
-public void tearDown() {
-	driver.quit();
-}
+
+	@When("user clicks on MyAccount button and selects Login option")
+	public void user_clicks_on_my_account_button_and_selects_login_option() {
+		logIn.clickMyAccount();
+		logIn.clickLogin();
+	}
+
+	@When("user enters valid LogIn deatils")
+	public void user_enters_valid_log_in_deatils() {
+		logIn.send_Data_To_Login(properties.getProperty("email"), properties.getProperty("password"));
+	}
+
+	@Then("user should clickOn LogIn")
+	public void user_should_click_on_log_in() {
+		logIn.clickLogInButton();
+	}
+
+	@Then("user should verify the title after LoggedIn")
+	public void user_should_verify_the_title_after_logg_in(DataTable dataTable) {
+			String expectedTitle=dataTable.asMaps(String.class,String.class).get(0).get("expTitle");
+			switch (expectedTitle) {
+			
+			case "My Account":
+				registrationPage.verifyTitle(expectedTitle);
+				break;
+			default:
+				System.out.println("Error while LogIn... please check logIn details that you have provided...");
+			}
+	}
+
+	@After
+	public void tearDown() {
+		driver.quit();
+	}
 
 }
