@@ -16,6 +16,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import com.aventstack.extentreports.Status;
 import com.opencart.base.BaseClass;
 
 public class BasePage extends BaseClass {
@@ -39,7 +40,12 @@ public class BasePage extends BaseClass {
 	public void click(WebElement element) {
 		waitForElement(element);
 
+		
+		
+		
 		element.click();
+		test.log(Status.INFO,element+"is clicked");
+		
 	}
 
 	public String getTitle() {
@@ -48,43 +54,53 @@ public class BasePage extends BaseClass {
 	}
 
 	public void verifyTitle(String title) {
+		 
 		Assert.assertEquals(getTitle(), title);
 	}
+	
+	public void higlightingElements(WebElement element) {
+		waitForElement(element);
 
-	public void getScreenshot(WebElement element) {
-		
-		
-		 String elementName = element.getText(); // Fetch text from the element
-         if (elementName.isEmpty()) {
-             elementName = element.getAttribute("id"); 
-         }
-
-         // Clean up the name to avoid invalid characters in the file name
-         elementName = elementName.replaceAll("[^a-zA-Z0-9]", "_");
 		String style = "background-color: yellow; border: 2px solid red; color: blue; font-size: 20px;";
 		((JavascriptExecutor) driver).executeScript("arguments[0].setAttribute('style', arguments[1]);", element,
 				style);
-		File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-		String timestamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
-		String fileName = elementName + timestamp + ".png";
-		File destinationFile = new File("src\\test\\resources\\screenshots\\" + fileName);
-		try {
-			FileUtils.copyFile(screenshot, destinationFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	}
+	public void getScreenshot(String element,String path) {
+		
+		
+		 String elementName = driver.getTitle(); // Fetch text from the element
+        
 
-		System.out.println("Screenshot saved successfully!");
+         // Clean up the name to avoid invalid characters in the file name
+         elementName = elementName.replaceAll("[^a-zA-Z0-9]", "_");
+         
+       
+         	File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+    		String timestamp = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").format(new Date());
+    		String fileName = elementName +"---"+ timestamp + ".png";
+    		File destinationFile = new File(path + fileName);
+    		try {
+    			FileUtils.copyFile(screenshot, destinationFile);
+    		} catch (IOException e) {
+    			e.printStackTrace();
+    		}
+         
+	
+
 	}
 	
 	public void mouseHover(WebElement element) {
 		
-		getScreenshot(element);
+		
 		Actions actions=new Actions(driver);
 		
 		actions.moveToElement(element).build().perform();
+
 		element.click();
+		test.log(Status.INFO,element+"is clicked");
         System.out.println("Action performed successfully!");
 	}
+	
+
 
 }

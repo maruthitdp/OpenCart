@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="0" passed="0" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-04-08T10:35:33 IST" name="Default suite" finished-at="2025-04-08T10:35:39 IST" duration-ms="5254">
+  <suite started-at="2025-04-10T09:45:55 IST" name="Suite" finished-at="2025-04-10T09:45:55 IST" duration-ms="9">
     <groups>
     </groups>
-    <test started-at="2025-04-08T10:35:33 IST" name="Default test" finished-at="2025-04-08T10:35:39 IST" duration-ms="5254">
-      <class name="com.opencart.runner.Runner">
-        <test-method signature="check()[pri:0, instance:com.opencart.runner.Runner@54a7079e]" started-at="2025-04-08T10:35:33 IST" name="check" finished-at="2025-04-08T10:35:39 IST" duration-ms="5162" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- check -->
-      </class> <!-- com.opencart.runner.Runner -->
-    </test> <!-- Default test -->
-  </suite> <!-- Default suite -->
+    <test started-at="2025-04-10T09:45:55 IST" name="Test" finished-at="2025-04-10T09:45:55 IST" duration-ms="9">
+    </test> <!-- Test -->
+  </suite> <!-- Suite -->
 </testng-results>

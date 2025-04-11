@@ -16,7 +16,7 @@ import io.cucumber.junit.CucumberOptions;
 								dryRun=false,
 								tags="@Login",
 								plugin = { "pretty", "json:target/cucumber-reports/Cucumber.json",
-										"html:target/cucumber-reports/reports.html"},
+										"html:target/cucumber-reports/reports.html","junit:target/cucumber-reports/Cucumber.xml"},
 								monochrome = true)
 public class Runner {
 

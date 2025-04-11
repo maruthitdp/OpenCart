@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="12.735" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-04-10T04:03:46.186934500Z">
+<testcase classname="Login Functionality o OpenCart" name="To validate login using valid credentials" time="12.551">
+<system-out><![CDATA[
+Given user launches the browser and open the url............................passed
+When user clicks on MyAccount button and selects Login option...............passed
+Then user checks the title of register page.................................passed
+When user enters valid LogIn deatils........................................passed
+Then user should clickOn LogIn..............................................passed
+And user should verify the title after LoggedIn.............................passed
+]]></system-out>
+</testcase>
+</testsuite>

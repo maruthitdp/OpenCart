@@ -1,5 +1,6 @@
 package com.opencart.pages;
 
+import org.junit.Assert;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -26,32 +27,46 @@ public class LogInPage extends BasePage {
 	@FindBy(xpath = "//input[@id='input-password']")
 	private WebElement passwordField;
 
-	@FindBy(css= "input[value='Login']")
+	@FindBy(css= "input[type='submit']")
 	private WebElement logInButton;
 
 	public void clickMyAccount() {
-		
+		higlightingElements(myAccount);
 		click(myAccount);
-		getScreenshot(myAccount);
+		
 	}
 
 	public void clickLogin() {
+		higlightingElements(logIn);
+		
 		mouseHover(logIn);
-		getScreenshot(logIn);
 
 	}
 	
 	public void clickLogInButton() {
+		higlightingElements(logInButton);
+
 		click(logInButton);
 	}
 
 	public void send_Data_To_Login(String email, String password) {
 		
 		type(emailTextField, email);
-		getScreenshot(emailTextField);
+		higlightingElements(emailTextField);
+
 		type(passwordField, password);
-		getScreenshot(passwordField);
+		higlightingElements(passwordField);
+
+		getScreenshot(driver.getTitle(),"src\\test\\resources\\screenshots\\logIn\\");
+
+	}
+	public void verifyFinalPageTitle(String expTitle) {
+
+		Assert.assertEquals(driver.getTitle(),expTitle);
+		getScreenshot(driver.getTitle(),"src\\test\\resources\\screenshots\\logIn\\");
+
 	}
 	
+
 	
 }

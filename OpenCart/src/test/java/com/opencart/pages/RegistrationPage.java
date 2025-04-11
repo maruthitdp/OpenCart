@@ -2,6 +2,7 @@ package com.opencart.pages;
 
 
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -57,55 +58,69 @@ public class RegistrationPage extends BasePage{
     @FindBy(xpath = "//form[@id='form-currency']")
     private WebElement detailsForm;
 
-
+    @FindBy(xpath="//div[text()=' Warning: E-Mail Address is already registered!']")
+    private WebElement resultText;
    
 
     public void clickMyAccount() {
-    	
+		higlightingElements(myAccountButton);
+
         click(myAccountButton);
-        getScreenshot(myAccountButton);
     }
 
     public void clickRegister() {
-    	
+		higlightingElements(registerButton);
+
         mouseHover(registerButton);
-        getScreenshot(registerButton);
     }
 
    
     
     public void enterPersonalDetails(String firstName, String lastName, String email, String telephone) {
+    	
         type(firstNameField, firstName);
-        getScreenshot(firstNameField);
+        higlightingElements(firstNameField);
+        
         type(lastNameField, lastName);
-        getScreenshot(lastNameField);
+        higlightingElements(lastNameField);
+        
         type(emailField, email);
-        getScreenshot(emailField);
+        higlightingElements(emailField);
+      
         type(telephoneField, telephone);
-        getScreenshot(telephoneField);
+        higlightingElements(telephoneField);
+       
     }
     
     public void enterPasswordDetails(String password, String confirmPassword) {
+        
         type(passwordField, password);
-		getScreenshot(passwordField);
+        higlightingElements(passwordField);
+        
         type(confirmPasswordField, confirmPassword);
-		getScreenshot(confirmPasswordField);
+        higlightingElements(confirmPasswordField);
+		getScreenshot(driver.getTitle(),"src\\test\\resources\\screenshots\\registration\\");
+
 
         
     }
 
 	public void clickTermsAndConditions() {
-		
+        higlightingElements(privacyCheckBox);
 		click(privacyCheckBox);
-		getScreenshot(privacyCheckBox);
+		
 	}
 
 	public void clickContinue() {
-		
+        higlightingElements(continueButton);
 		click(continueButton);
-		getScreenshot(continueButton);
+		higlightingElements(resultText);
+
+		getScreenshot(driver.getTitle(),"src\\test\\resources\\screenshots\\registration\\");
 	}
 
+	
+	
 
 	
 }

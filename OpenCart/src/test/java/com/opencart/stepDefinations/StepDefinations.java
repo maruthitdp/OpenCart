@@ -1,11 +1,14 @@
 package com.opencart.stepDefinations;
 
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
 import org.openqa.selenium.WebElement;
 
+import com.aventstack.extentreports.Status;
 import com.opencart.base.BaseClass;
+import com.opencart.pages.BasePage;
 import com.opencart.pages.LogInPage;
 import com.opencart.pages.RegistrationPage;
 
@@ -21,11 +24,14 @@ public class StepDefinations extends BaseClass {
 	BaseClass baseClass;
 	RegistrationPage registrationPage;
 	LogInPage logIn;
+	BasePage bp=new BasePage();
 
 	@Given("user launches the browser and open the url")
-	public void user_launches_the_browser_and_open_the_url() {
-		launchBrowser();
+	public void user_launches_the_browser_and_open_the_url() throws NoSuchMethodException, SecurityException  {
+		 Method method = this.getClass().getMethod("user_launches_the_browser_and_open_the_url");
+		launchBrowser(method);
 		openUrl();
+		
 		registrationPage = new RegistrationPage(driver);
 		logIn = new LogInPage(driver);
 	}
@@ -33,6 +39,7 @@ public class StepDefinations extends BaseClass {
 	@When("user clicks on MyAccount button and selects Register option")
 	public void user_clicks_on_my_account_button_and_selects_register_option() {
 		registrationPage.clickMyAccount();
+
 		registrationPage.clickRegister();
 	}
 
@@ -58,7 +65,7 @@ public class StepDefinations extends BaseClass {
 	@When("user enters password details of the mandatory fields")
 	public void user_enters_password_details_of_the_mandatory_fields() {
 		registrationPage.enterPasswordDetails(properties.getProperty("password"),
-				properties.getProperty("confirmPassword")); // Replace with actual password
+				properties.getProperty("password")); // Replace with actual password
 	}
 
 	@When("user clicks on mandatoryCheckBoxes")
@@ -69,22 +76,28 @@ public class StepDefinations extends BaseClass {
 	@When("user clicks on Continue button")
 	public void user_clicks_on_continue_button() {
 		registrationPage.clickContinue();
+
 	}
 
 	@Then("user should be navigated to Account Success Page and verify the title of the page")
 	public void user_should_be_navigated_to_account_success_page_and_verify_the_title_of_the_page(DataTable dataTable) {
+		
 		String expectedTitle = dataTable.asMaps(String.class, String.class).get(0).get("expTitle");
+		
 
 		switch (expectedTitle) {
 		case "Your Account Has Been Created!":
 			registrationPage.verifyTitle(expectedTitle);
 			break;
 		case "Register Account":
+
 			System.out.println("User already registered with email...");
 			break;
 		default:
+
 			System.out.println("Error while registration... please check all the details that you have provided...");
 		}
+		
 
 	}
 
@@ -107,6 +120,8 @@ public class StepDefinations extends BaseClass {
 	@Then("user should verify the title after LoggedIn")
 	public void user_should_verify_the_title_after_logg_in(DataTable dataTable) {
 			String expectedTitle=dataTable.asMaps(String.class,String.class).get(0).get("expTitle");
+			
+			logIn.verifyFinalPageTitle(expectedTitle);
 			switch (expectedTitle) {
 			
 			case "My Account":
@@ -119,7 +134,9 @@ public class StepDefinations extends BaseClass {
 
 	@After
 	public void tearDown() {
-		driver.quit();
+//		driver.quit();
+		test.log(Status.INFO,  "Browser is closed ..");
+		reports.flush();
 	}
 
 }
